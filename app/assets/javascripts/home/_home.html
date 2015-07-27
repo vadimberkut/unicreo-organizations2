@@ -1,0 +1,49 @@
+<div class="pageHeader">
+    <h1 class="pageTitle">Organizations</h1>
+
+    <div >
+        <button ng-click="showAddOrganizationForm()" ng-hide="addOrganizationFlag" class="addOrganizationBtn">
+            Add organization
+        </button>
+
+        <div ng-if="addOrganizationFlag" class="addOrganizationForm">
+            <div ng-include="'_form.html'"></div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <ul>
+        <li ng-repeat="organization in organizations">
+            <h1>
+                {{organization.name}}
+                <span class="controlButtonsBox">
+                <button ng-click="edit(organization.id)" class="editLink">edit</button>
+                <button ng-click="deleteOrganization(organization)" class="deleteBtn">delete</button>
+                <button ng-click="showAttachments(organization)" class="showBtn">
+                    attachments</button>
+                </span>
+            </h1>
+            <div class="infoItem">
+                <span class="dbDataSign">Type: </span>{{organization.organization_type}}
+            </div>
+            <div class="infoItem">
+                <span class="dbDataSign">Address: </span>{{organization.address}}
+            </div>
+            <div class="infoItem">
+                <span class="dbDataSign">Telephone: </span>{{organization.telephone}}
+            </div>
+            <div class="infoItem">
+                <span class="dbDataSign">Description: </span>{{organization.description}}
+            </div>
+            <div ng-if="showAttachmentsFlags[organization.id]" class="infoItem">
+                <span ng-if="organization.attachments.length" class="dbDataSign">Attachments: </span>
+                <div class="">
+                    <img ng-repeat="attachment in organization.attachments"
+                         ng-src="{{attachment.name}}" class="orgImg">
+                </div>
+            </div>
+
+        </li>
+    </ul>
+</div>

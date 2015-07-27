@@ -1,0 +1,71 @@
+<h3 class="newOrgTitle">New organization</h3>
+
+<div class="errorBlock" ng-show="error">
+    {{error}}
+</div>
+
+<div >
+    <form>
+        <div>
+            <label for="nameInpt">Name</label>
+            <br/>
+            <input ng-model="organization.name" name="name" type="text" id="nameInpt">
+        </div>
+        <div>
+            <div><label for="descriptionInpt">Description</label></div>
+            <textarea ng-model="organization.description" name="description" id="descriptionInpt"></textarea>
+        </div>
+        <div>
+            <label for="orgtypeInpt">Type</label>
+            <br/>
+            <select ng-model="organization.organization_type" name="orgtype" id="orgtypeInpt">
+                <option value="commercial">commercial</option>
+                <option value="noncommercial">noncommercial</option>
+                <option value="not specified">not specified</option>
+            </select>
+        </div>
+        <div>
+            <label for="addressInpt">Address</label>
+            <br/>
+            <input ng-model="organization.address" name="address" type="text" id="addressInpt">
+        </div>
+        <div>
+            <label for="telephoneInpt">Telephone</label>
+            <br/>
+            <input ng-model="organization.telephone" name="telephone" type="text" id="telephoneInpt">
+        </div>
+
+        <div ng-show="organization.id">
+            <span>Attachments</span>
+            <div>
+                <div ngf-drop ngf-select ng-model="uploadFiles.files" class="drop-box"
+                     ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                     accept="image/*,application/pdf">
+                    Перетащите сюда файлы или кликните для загрузки
+                </div>
+
+                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+                <div ng-show="uploadFiles.files">
+                    Следующие файлы будут загружены:
+                    <ul>
+                        <li ng-repeat="f in uploadFiles.files">
+                            {{f.name}} (~{{parseInt(f.size/1024)}}Кб, {{f.type}})
+                        </li>
+                    </ul>
+                </div>
+
+                <!--<div>
+                  Upload Log:
+                  <pre>{{log}}</pre>
+                </div>-->
+
+            </div>
+        </div>
+
+        <div >
+            <button ng-click="cancel()" class="cancelBtn">Cancel</button>
+            <button ng-click="save()" class="saveBtn">Save</button>
+        </div>
+    </form>
+</div>
