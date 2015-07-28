@@ -13,11 +13,11 @@ a:hover { color: #1690EE;} /* при наведении курсора мышк�
 
 .controlButtonsBox{
     position: absolute;
-    right: 4px;
+    right: 6px;
     padding: 0;
 }
 
-.editLink{
+.editBtn{
     color: #3A9143;
 }
 .deleteBtn{
@@ -37,6 +37,13 @@ button:hover { font-weight: bold;}
 .infoItem{
     margin-top: 6px;
     margin-bottom: 6px;
+}
+.dbDataSign{
+    color: #133859;
+    font-size: 14pt;
+}
+.description{
+    word-wrap: break-word;
 }
 
 div .description{
@@ -68,13 +75,6 @@ button{
     /*margin: 0 10px 0 0;*/
 }
 
-.dbData{
-    color: #222222;
-}
-.dbDataSign{
-    color: #133859;
-    font-size: 14pt;
-}
 .orgImgBox{
     padding: 0 0 4px 0;
 

@@ -22,9 +22,8 @@ class OrganizationsController < ApplicationController
     organization = Organization.find(params[:id])
 
     organization.attachments.each do |attachment|
-      img_name = attachment.name
-      img_directory = "#{Rails.root}/public/"
-      path = img_directory << img_name
+
+      path = File.join( ENV['attachments_store_directory'], attachment.name )
 
       if(File.exist?(path))
         File.delete(path)

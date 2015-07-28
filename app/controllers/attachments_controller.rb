@@ -1,19 +1,15 @@
 class AttachmentsController < ApplicationController
 
   def create
-    name = params[:file].original_filename
-    name = "#{params[:organization_id]}_" << name
+    attachment_name = "#{params[:organization_id]}_" + "#{params[:file].original_filename}"
 
     organization = Organization.find(params[:organization_id])
-   # attachment = organization.attachments.create(attachment_params)
-   attachment = organization.attachments.create(name: name, organization: organization)
-   # Attachment.create(name: name, organization: organization )
+    attachment = organization.attachments.create(name: attachment_name)
 
-    directory = "public"
-    path = File.join(directory, name)
+    path = File.join( ENV['attachments_store_directory'], attachment_name )
     File.open(path, "wb") { |f| f.write(params[:file].read) }
 
-    #respond_with organization, attachment
+    respond_with organization, attachment
   end
 
   def destroy

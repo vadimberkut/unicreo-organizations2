@@ -1,0 +1,12 @@
+defaults: &defaults
+  attachments_store_directory: public
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+

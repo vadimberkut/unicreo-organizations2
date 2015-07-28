@@ -26,8 +26,8 @@ function($stateProvider, $urlRouterProvider) {
                     return oraganizations.get($stateParams.id);
                 }]
             }
-        })
+        });
 
     $urlRouterProvider.otherwise('home');
 
-}])
+}]);

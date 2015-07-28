@@ -7,12 +7,18 @@ function($scope, organizations, $location){
 
     $scope.organizations = organizations.organizations;
     $scope.organization = {};
-    $scope.addOrganizationFlag = false;
 
+    $scope.error = "";
+
+    $scope.showAddButton = true;
+
+    $scope.filterExpr = {}
+
+    //show/hide organization attachments
     $scope.showAttachmentsFlags = [];
 
-    $scope.toggleAddOrganizationFlag = function(){
-        $scope.addOrganizationFlag = !($scope.addOrganizationFlag);
+    $scope.toggleShowAddButton = function(){
+        $scope.showAddButton = !$scope.showAddButton;
     }
 
     $scope.validateOrganization = function(organization){
@@ -25,7 +31,7 @@ function($scope, organizations, $location){
     }
 
     $scope.showAddOrganizationForm = function(){
-        $scope.toggleAddOrganizationFlag();
+        $scope.toggleShowAddButton();
     }
 
 
@@ -47,9 +53,11 @@ function($scope, organizations, $location){
 
     //form
     $scope.cancel = function(){
-        $scope.toggleAddOrganizationFlag();
+        $scope.toggleShowAddButton();
+        $scope.error = "";
     }
 
+    //add organization
     $scope.save = function(){
 
        if( !$scope.validateOrganization($scope.organization) ){
@@ -61,7 +69,8 @@ function($scope, organizations, $location){
         });
 
         $scope.organization = {};
-        $scope.toggleAddOrganizationFlag();
+        $scope.toggleShowAddButton();
+        $scope.error = "";
 
     }
 

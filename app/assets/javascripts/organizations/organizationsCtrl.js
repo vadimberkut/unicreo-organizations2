@@ -9,12 +9,14 @@ angular.module('organizationsApp')
 '$location',
 function($scope, $state, organizations, organization, Upload, $timeout, $location){
 
+    //organization for edit
     $scope.organization = organization;
 
-    $scope.uploadFiles = {};
+    //files for upload
+    $scope.uploadFiles = {files: []};
 
     $scope.cancel = function(){
-        $state.go('home');
+        $location.path('/home');
     };
 
     $scope.save = function(){
@@ -25,7 +27,7 @@ function($scope, $state, organizations, organization, Upload, $timeout, $locatio
 
     $scope.startUploadFiles = function() {
 
-        $scope.$watch('uploadFiles.files', function () {
+       $scope.$watch('uploadFiles.files', function () {
             $scope.upload($scope.uploadFiles.files);
         });
     };
@@ -37,15 +39,10 @@ function($scope, $state, organizations, organization, Upload, $timeout, $locatio
                 var file = files[i];
                 Upload.upload({
                     url: '/organizations/' + $scope.organization.id + '/attachments',
-                    fields: {
-                        //'organization_id': $scope.organization.id
-                    },
+                    fields: { },
                     file: file
-                }).progress(function (evt) {
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    $scope.log = 'progress: ' + progressPercentage + '% ' +
-                        evt.config.file.name + '\n' + $scope.log;
-                }).success(function (data, status, headers, config) {
+                })
+                .success(function (data, status, headers, config) {
                     $timeout(function() {
                         $scope.log = 'file: ' + config.file.name + ', Response: ' + JSON.stringify(data) + '\n' + $scope.log;
                     });

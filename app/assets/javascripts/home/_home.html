@@ -2,23 +2,24 @@
     <h1 class="pageTitle">Organizations</h1>
 
     <div >
-        <button ng-click="showAddOrganizationForm()" ng-hide="addOrganizationFlag" class="addOrganizationBtn">
+        <button ng-click="showAddOrganizationForm()"
+                ng-show="showAddButton" class="addOrganizationBtn">
             Add organization
         </button>
 
-        <div ng-if="addOrganizationFlag" class="addOrganizationForm">
-            <div ng-include="'_form.html'"></div>
+        <div ng-hide="showAddButton" class="addOrganizationForm">
+            <div ng-include="'organizations/_form.html'"></div>
         </div>
     </div>
 </div>
 
 <div>
     <ul>
-        <li ng-repeat="organization in organizations">
+        <li ng-repeat="organization in organizations | orderBy: 'name' ">
             <h1>
                 {{organization.name}}
                 <span class="controlButtonsBox">
-                <button ng-click="edit(organization.id)" class="editLink">edit</button>
+                <button ng-click="edit(organization.id)" class="editBtn">edit</button>
                 <button ng-click="deleteOrganization(organization)" class="deleteBtn">delete</button>
                 <button ng-click="showAttachments(organization)" class="showBtn">
                     attachments</button>
@@ -34,7 +35,8 @@
                 <span class="dbDataSign">Telephone: </span>{{organization.telephone}}
             </div>
             <div class="infoItem">
-                <span class="dbDataSign">Description: </span>{{organization.description}}
+                <span class="dbDataSign">Description: </span>
+                <span class="description">{{organization.description}}</span>
             </div>
             <div ng-if="showAttachmentsFlags[organization.id]" class="infoItem">
                 <span ng-if="organization.attachments.length" class="dbDataSign">Attachments: </span>
