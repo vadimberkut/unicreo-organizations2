@@ -12,14 +12,12 @@ function($scope, organizations, $location){
 
     $scope.showAddButton = true;
 
-    $scope.filterExpr = {}
-
     //show/hide organization attachments
     $scope.showAttachmentsFlags = [];
 
     $scope.toggleShowAddButton = function(){
         $scope.showAddButton = !$scope.showAddButton;
-    }
+    };
 
     $scope.validateOrganization = function(organization){
         if(!organization.name || !organization.description || !organization.organization_type ||
@@ -28,34 +26,34 @@ function($scope, organizations, $location){
             return false;
         }
         return true;
-    }
+    };
 
     $scope.showAddOrganizationForm = function(){
         $scope.toggleShowAddButton();
-    }
+    };
 
 
     $scope.edit = function(organization_id){
         $location.path('/organizations/' + organization_id);
-    }
+    };
 
     $scope.deleteOrganization = function(organization){
         organizations.delete(organization);
-    }
+    };
 
     $scope.showAttachments = function(organization){
         if(!$scope.showAttachmentsFlags[organization.id])
             $scope.showAttachmentsFlags[organization.id] = true;
         else
             $scope.showAttachmentsFlags[organization.id] =! $scope.showAttachmentsFlags[organization.id]
-    }
+    };
 
 
     //form
     $scope.cancel = function(){
         $scope.toggleShowAddButton();
         $scope.error = "";
-    }
+    };
 
     //add organization
     $scope.save = function(){
@@ -72,6 +70,16 @@ function($scope, organizations, $location){
         $scope.toggleShowAddButton();
         $scope.error = "";
 
-    }
+    };
 
-}])
+    //sort
+    $scope.predicate = 'name';
+    $scope.reverse = false;
+
+    $scope.sortOrder = function(predicate) {
+        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+        $scope.predicate = predicate;
+    };
+
+
+}]);

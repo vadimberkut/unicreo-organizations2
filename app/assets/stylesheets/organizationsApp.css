@@ -3,8 +3,16 @@ h1{
     color: #E95A20;
 }
 
-ul li{
+.contentList li{
     border-bottom: 1px solid #BEB0B0;
+}
+
+.sortItem{
+    cursor: pointer;
+}
+.sortTypeSymbol{
+    font-size: 10pt;
+    color: #b137ff;
 }
 
 /*a:link { color:#456EC1; } /*Цвет ссылки*/
@@ -52,7 +60,7 @@ div .description{
 
 button{
      width: 120px;
-     height: 38px;
+     height: 34px;
 
      color: #1A1A26;
      font-size: 12pt;
@@ -103,7 +111,7 @@ button{
 }
 
 .pageTitle{
-    text-align: center;
+    text-align: left;
 }
 
 .newOrgTitle{
@@ -149,4 +157,23 @@ form #attacmentsInpt{
 .dragover {
     border: 4px solid #38E4D7;
     background: #28ED76;
+}
+
+.navigationBar{
+    background-color: #f3f3f3;
+
+    position: absolute;
+    top: 14px;
+    right: 10px;
+}
+.navigationBarList{
+    padding: 2px;
+}
+.navigationBarList li{
+    display: inline;
+    margin: 4px;
+}
+.navigationBarList li a{
+    color: #477cff;
+    font-weight: bold;
 }

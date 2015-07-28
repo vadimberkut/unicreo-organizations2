@@ -15,6 +15,7 @@
   "dependencies": {
     "angular": "~1.4.3",
     "angular-ui-router": "~0.2.15",
-    "ng-file-upload": "~5.0.9"
+    "ng-file-upload": "~5.0.9",
+    "angular-devise": "~1.1.0"
   }
 }

@@ -1,5 +1,7 @@
 class AttachmentsController < ApplicationController
 
+  before_filter :authenticate_user!, only: [:create, :destroy]
+
   def create
     attachment_name = "#{params[:organization_id]}_" + "#{params[:file].original_filename}"
 
@@ -13,7 +15,6 @@ class AttachmentsController < ApplicationController
   end
 
   def destroy
-
   end
 
   def attachment_params

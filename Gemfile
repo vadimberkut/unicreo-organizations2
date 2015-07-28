@@ -27,7 +27,7 @@ gem 'responders'
 gem 'angular_rails_csrf'
 
 gem 'angular-rails-templates'
-#gem 'devise'
+gem 'devise'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

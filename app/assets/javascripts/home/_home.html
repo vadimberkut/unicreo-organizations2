@@ -14,10 +14,16 @@
 </div>
 
 <div>
-    <ul>
-        <li ng-repeat="organization in organizations | orderBy: 'name' ">
+    <ul class="contentList">
+        <li ng-repeat="organization in organizations | orderBy:predicate:reverse">
             <h1>
-                {{organization.name}}
+                <span ng-click="sortOrder('name')" class="sortItem">{{organization.name}}</span>
+
+                <span ng-show="predicate=='name'" class="sortTypeSymbol">
+                    <span ng-hide="reverse"> &#9650;</span>
+                    <span ng-show="reverse"> &#9660;</span>
+                </span>
+
                 <span class="controlButtonsBox">
                 <button ng-click="edit(organization.id)" class="editBtn">edit</button>
                 <button ng-click="deleteOrganization(organization)" class="deleteBtn">delete</button>
@@ -26,7 +32,13 @@
                 </span>
             </h1>
             <div class="infoItem">
-                <span class="dbDataSign">Type: </span>{{organization.organization_type}}
+                <span ng-click="sortOrder('organization_type')" class="dbDataSign sortItem">Type: </span>
+                {{organization.organization_type}}
+
+                <span ng-show="predicate=='organization_type'" class="sortTypeSymbol">
+                    <span ng-hide="reverse"> &#9650;</span>
+                    <span ng-show="reverse"> &#9660;</span>
+                </span>
             </div>
             <div class="infoItem">
                 <span class="dbDataSign">Address: </span>{{organization.address}}

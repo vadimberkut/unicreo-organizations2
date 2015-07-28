@@ -1,4 +1,4 @@
-angular.module('organizationsApp', ['ui.router', 'templates', 'ngFileUpload'])
+angular.module('organizationsApp', ['ui.router', 'templates', 'ngFileUpload', 'Devise'])
 .config([
 '$stateProvider',
 '$urlRouterProvider',
@@ -26,7 +26,29 @@ function($stateProvider, $urlRouterProvider) {
                     return oraganizations.get($stateParams.id);
                 }]
             }
-        });
+        })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'auth/_login.html',
+            controller: 'AuthCtrl',
+
+            onEnter: ['$state', 'Auth', function($state, Auth){
+                Auth.currentUser().then(function(){
+                    $state.go('home');
+                })
+            }]
+        })
+        .state('register', {
+            url: '/register',
+            templateUrl: 'auth/_register.html',
+            controller: 'AuthCtrl',
+
+            onEnter: ['$state', 'Auth', function($state, Auth){
+                Auth.currentUser().then(function(){
+                    $state.go('home');
+                })
+            }]
+        })
 
     $urlRouterProvider.otherwise('home');
 
