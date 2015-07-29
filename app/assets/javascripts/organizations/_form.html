@@ -1,6 +1,8 @@
 <div>
     <h3>New organization</h3>
 
+    <div ng-bind="formError" class="error-message"></div>
+
     <form class="form">
         <div class="form-group">
             <label for="nameInpt">Name</label>
@@ -56,4 +58,5 @@
             <button ng-click="save()" class="button">Save</button>
         </div>
     </form>
+
 </div>

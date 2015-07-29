@@ -14,7 +14,6 @@ function($scope, Auth){
 
     }, function(error){
         // unauthenticated error
-       // alert(JSON.stringify(error.data))
     });
 
     /*Event listeners to handle when the user authenticates and logs out. */

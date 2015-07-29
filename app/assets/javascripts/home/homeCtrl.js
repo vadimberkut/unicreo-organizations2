@@ -26,21 +26,22 @@ function($scope, organizationsFactory, $location, Auth){
     //toggle show/hide add organization form
     $scope.showAddForm = function(){
         if(!Auth.isAuthenticated())
-            alert("You need to log in or register before continuing.");
+            $scope.authError = "You need to log in or register before adding.";
         else
             $scope.showAddFormFlag = !$scope.showAddFormFlag ;
     };
 
     $scope.edit = function(organization_id){
-        if(!Auth.isAuthenticated())
-            alert("You need to log in or register before continuing.");
+        if(!Auth.isAuthenticated()) {
+            $scope.authError = "You need to log in or register before editing.";
+        }
         else
             $location.path('/organizations/' + organization_id);
     };
 
     $scope.deleteOrganization = function(organization){
         if(!Auth.isAuthenticated())
-            alert("You need to log in or register before continuing.");
+            $scope.authError = "You need to log in or register before deleting.";
         else
             organizationsFactory.delete(organization);
     };
@@ -63,15 +64,15 @@ function($scope, organizationsFactory, $location, Auth){
     $scope.save = function(){
 
        if( !$scope.validateOrganization($scope.organization) ){
-            alert("fill in all fields to save organization");
-            return;
+           $scope.formError = "Fill in all fields before continuing.";
+           return;
         }
-        organizationsFactory.create($scope.organization).error(function(data){
-            //alert(data.errors);
+        organizationsFactory.create($scope.organization).error(function(data, status, headers, config) {
         });
 
         $scope.organization = {};
         $scope.showAddForm();
+        $scope.formError = "";
     };
 
     //sort

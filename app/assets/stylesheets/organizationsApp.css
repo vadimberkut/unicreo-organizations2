@@ -304,15 +304,17 @@ form #attacmentsInpt{
 
 /* navigation */
 .navigation-bar{
-    background-color: #f3f3f3;
+
 
     position: absolute;
     top: 8px;
     right: 10px;
 }
 .navigation-bar__list{
-    padding: 2px;
-    margin: 8px;
+    background-color: #f3f3f3;
+
+    padding: 2px 2px 2px 2px;
+    margin: 8px 8px 8px 8px;
 }
 .navigation-bar__list li{
     display: inline;
@@ -326,6 +328,14 @@ form #attacmentsInpt{
 /*error*/
 .error-message{
     color: #ff3b2f;
-    font-size: 10pt;
+    font-size: 11pt;
  }
+.error-message_right{
+    position: absolute;
+    right: 8px;
+}
+.error-message_little{
+    font-size: 9pt;
+    width: 220px;
+}
 

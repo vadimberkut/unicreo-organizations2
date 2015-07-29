@@ -18,6 +18,8 @@
         </button>
     </span>
 
+    <span ng-bind="authError" class="error-message error-message_right"></span>
+
     <div ng-show="showAddFormFlag">
         <div ng-include="'organizations/_form.html'"></div>
     </div>
