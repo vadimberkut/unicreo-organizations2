@@ -43,7 +43,7 @@ group :development, :test do
   gem 'spring'
 end
 
-group :production do
+group :production, :staging do
   gem 'pg'
   gem "rails_12factor"
   gem "rails_stdout_logging"
