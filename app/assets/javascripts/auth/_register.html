@@ -2,17 +2,19 @@
     <h1 class="pageTitle">Register</h1>
 </div>
 
-<form ng-submit="register()">
-    <div class="">
+<form ng-submit="register()" class="form">
+    <div class="form-group">
         <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
     </div>
-    <div class="">
+    <div class="form-group">
         <input type="text" class="form-control" placeholder="Username" ng-model="user.username">
     </div>
-    <div class="">
+    <div class="form-group">
         <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
     </div>
-    <div>
-        <input type="submit" class="" value="Register">
+    <div class="form-group">
+        <input type="submit" value="Register" class="button">
     </div>
 </form>
+
+<pre ng-bind="registerError" class="error-message"></pre>

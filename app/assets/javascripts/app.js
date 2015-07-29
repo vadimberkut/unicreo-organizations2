@@ -49,7 +49,7 @@ function($stateProvider, $urlRouterProvider) {
                     $state.go('home');
                 })
             }]
-        })
+        });
 
     $urlRouterProvider.otherwise('home');
 

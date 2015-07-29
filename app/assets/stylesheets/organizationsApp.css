@@ -323,3 +323,9 @@ form #attacmentsInpt{
     color: #477cff;
 }
 
+/*error*/
+.error-message{
+    color: #ff3b2f;
+    font-size: 10pt;
+ }
+

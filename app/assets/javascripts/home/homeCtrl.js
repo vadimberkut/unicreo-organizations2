@@ -3,7 +3,8 @@ angular.module('organizationsApp')
 '$scope',
 'organizationsFactory',
 '$location',
-function($scope, organizationsFactory, $location){
+'Auth',
+function($scope, organizationsFactory, $location, Auth){
 
     $scope.organizations = organizationsFactory.organizations;
     $scope.organization = {};
@@ -24,15 +25,24 @@ function($scope, organizationsFactory, $location){
 
     //toggle show/hide add organization form
     $scope.showAddForm = function(){
-        $scope.showAddFormFlag = !$scope.showAddFormFlag ;
+        if(!Auth.isAuthenticated())
+            alert("You must log in to add organization");
+        else
+            $scope.showAddFormFlag = !$scope.showAddFormFlag ;
     };
 
     $scope.edit = function(organization_id){
-        $location.path('/organizations/' + organization_id);
+        if(!Auth.isAuthenticated())
+            alert("You must log in to edit organization");
+        else
+            $location.path('/organizations/' + organization_id);
     };
 
     $scope.deleteOrganization = function(organization){
-        organizationsFactory.delete(organization);
+        if(!Auth.isAuthenticated())
+            alert("You must log in to delete organization");
+        else
+            organizationsFactory.delete(organization);
     };
 
     $scope.showAttachments = function(organization){
@@ -57,7 +67,7 @@ function($scope, organizationsFactory, $location){
             return;
         }
         organizationsFactory.create($scope.organization).error(function(data){
-            //data.errors;
+            //alert(data.errors);
         });
 
         $scope.organization = {};

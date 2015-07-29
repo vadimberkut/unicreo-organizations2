@@ -2,14 +2,16 @@
     <h1 class="pageTitle">Log In</h1>
 </div>
 
-<form ng-submit="login()">
-    <div class="">
+<form ng-submit="login()" class="form">
+    <div class="form-group">
         <input type="email" class="form-control" placeholder="Email" ng-model="user.email">
     </div>
-    <div class="">
+    <div class="form-group">
         <input type="password" class="form-control" placeholder="Password" ng-model="user.password">
     </div>
-    <div>
-        <input type="submit" class="" value="Log In">
+    <div class="form-group">
+        <input type="submit" value="Log In" class="button">
     </div>
 </form>
+
+<pre ng-bind="loginError" class="error-message"></pre>

@@ -9,7 +9,12 @@ function($scope, Auth){
 
     //set $scope.user when the controller loads
     Auth.currentUser().then(function(user){
+        // User was logged in, or Devise returned previously authenticated session.
         $scope.user = user;
+
+    }, function(error){
+        // unauthenticated error
+       // alert(JSON.stringify(error.data))
     });
 
     /*Event listeners to handle when the user authenticates and logs out. */
@@ -23,6 +28,10 @@ function($scope, Auth){
 
     $scope.$on('devise:logout', function (e, user){
         $scope.user = {};
+    });
+
+    $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
+        alert("unauthorized")
     });
 
 }]);
