@@ -26,21 +26,21 @@ function($scope, organizationsFactory, $location, Auth){
     //toggle show/hide add organization form
     $scope.showAddForm = function(){
         if(!Auth.isAuthenticated())
-            alert("You must log in to add organization");
+            alert("You need to log in or register before continuing.");
         else
             $scope.showAddFormFlag = !$scope.showAddFormFlag ;
     };
 
     $scope.edit = function(organization_id){
         if(!Auth.isAuthenticated())
-            alert("You must log in to edit organization");
+            alert("You need to log in or register before continuing.");
         else
             $location.path('/organizations/' + organization_id);
     };
 
     $scope.deleteOrganization = function(organization){
         if(!Auth.isAuthenticated())
-            alert("You must log in to delete organization");
+            alert("You need to log in or register before continuing.");
         else
             organizationsFactory.delete(organization);
     };
