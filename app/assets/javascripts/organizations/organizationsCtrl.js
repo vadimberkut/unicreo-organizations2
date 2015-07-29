@@ -1,11 +1,11 @@
 angular.module('organizationsApp')
 .controller('OrganizationsCtrl',[
 '$scope',
-'organizations',
+'organizationsFactory',
 'organization',//single organization
 'Upload',
 '$state',
-function($scope, organizations, organization, Upload, $state){
+function($scope, organizationsFactory, organization, Upload, $state){
 
     //organization for edit
     $scope.organization = organization;
@@ -18,7 +18,7 @@ function($scope, organizations, organization, Upload, $state){
     };
 
     $scope.save = function(){
-        organizations.update($scope.organization);
+        organizationsFactory.update($scope.organization);
         $scope.upload($scope.uploadFiles.files);
         $state.go('home');
     };

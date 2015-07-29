@@ -1,71 +1,59 @@
-<h3 class="newOrgTitle">New organization</h3>
+<div>
+    <h3>New organization</h3>
 
-<div class="errorBlock" ng-show="error">
-    {{error}}
-</div>
-
-<div >
-    <form>
-        <div>
+    <form class="form">
+        <div class="form-group">
             <label for="nameInpt">Name</label>
             <br/>
             <input ng-model="organization.name" name="name" type="text" id="nameInpt">
         </div>
-        <div>
+        <div class="form-group">
             <div><label for="descriptionInpt">Description</label></div>
             <textarea ng-model="organization.description" name="description" id="descriptionInpt">
             </textarea>
         </div>
-        <div>
-            <label for="orgtypeInpt">Type</label>
-            <br/>
+        <div class="form-group">
+            <div><label for="orgtypeInpt">Type</label></div>
             <select ng-model="organization.organization_type" name="orgtype" id="orgtypeInpt">
                 <option value="commercial">commercial</option>
                 <option value="noncommercial">noncommercial</option>
                 <option value="not specified">not specified</option>
             </select>
         </div>
-        <div>
-            <label for="addressInpt">Address</label>
-            <br/>
+        <div class="form-group">
+            <div><label for="addressInpt">Address</label></div>
             <input ng-model="organization.address" name="address" type="text" id="addressInpt">
         </div>
-        <div>
-            <label for="telephoneInpt">Telephone</label>
-            <br/>
+        <div class="form-group">
+            <div><label for="telephoneInpt">Telephone</label></div>
             <input ng-model="organization.telephone" name="telephone" type="text" id="telephoneInpt">
         </div>
 
-        <div ng-show="organization.id">
+        <div ng-show="organization.id" class="form-group">
             <span>Attachments</span>
             <div>
                 <div ngf-drop ngf-select ng-model="uploadFiles.files" class="drop-box"
-                     ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+                     ngf-drag-over-class="drop-box-dragover" ngf-multiple="true" ngf-allow-dir="true"
                      accept="image/*,application/pdf">
-                    Перетащите сюда файлы или кликните для загрузки
+                    Drop files here or click to select
                 </div>
 
                 <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
                 <div ng-show="uploadFiles.files">
-                    Следующие файлы будут загружены:
+                    Files for upload:
                     <ul>
                         <li ng-repeat="f in uploadFiles.files">
-                            {{f.name}} (~{{parseInt(f.size/1024)}}Кб, {{f.type}})
+                            {{f.name}} (~{{ (f.size/1024) }}Кб, {{f.type}})
                         </li>
                     </ul>
                 </div>
-
-                <!--<div>
-                  Upload Log: <pre>{{log}}</pre>
-                </div>-->
-
             </div>
         </div>
 
-        <div >
-            <button ng-click="cancel()" class="cancelBtn">Cancel</button>
-            <button ng-click="save()" class="saveBtn">Save</button>
+        <div class="form-group">
+            <button ng-click="cancel()" class="">Cancel</button>
+            <button ng-click="save()" class="">Save</button>
         </div>
     </form>
 </div>

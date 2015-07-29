@@ -1,23 +1,17 @@
 angular.module('organizationsApp')
 .controller('HomeCtrl', [
 '$scope',
-'organizations',
-        '$location',
-function($scope, organizations, $location){
+'organizationsFactory',
+'$location',
+function($scope, organizationsFactory, $location){
 
-    $scope.organizations = organizations.organizations;
+    $scope.organizations = organizationsFactory.organizations;
     $scope.organization = {};
 
-    $scope.error = "";
-
-    $scope.showAddButton = true;
+    $scope.showAddFormFlag = false;
 
     //show/hide organization attachments
     $scope.showAttachmentsFlags = [];
-
-    $scope.toggleShowAddButton = function(){
-        $scope.showAddButton = !$scope.showAddButton;
-    };
 
     $scope.validateOrganization = function(organization){
         if(!organization.name || !organization.description || !organization.organization_type ||
@@ -28,17 +22,17 @@ function($scope, organizations, $location){
         return true;
     };
 
-    $scope.showAddOrganizationForm = function(){
-        $scope.toggleShowAddButton();
+    //toggle show/hide add organization form
+    $scope.showAddForm = function(){
+        $scope.showAddFormFlag = !$scope.showAddFormFlag ;
     };
-
 
     $scope.edit = function(organization_id){
         $location.path('/organizations/' + organization_id);
     };
 
     $scope.deleteOrganization = function(organization){
-        organizations.delete(organization);
+        organizationsFactory.delete(organization);
     };
 
     $scope.showAttachments = function(organization){
@@ -49,37 +43,34 @@ function($scope, organizations, $location){
     };
 
 
-    //form
+    // reset all entered data and hide add organization form
     $scope.cancel = function(){
-        $scope.toggleShowAddButton();
-        $scope.error = "";
+        $scope.showAddForm();
+        $scope.organization = {};
     };
 
-    //add organization
+    //add organization and hide add organization form
     $scope.save = function(){
 
        if( !$scope.validateOrganization($scope.organization) ){
-            $scope.error = "fill in all fields to save organization";
+            alert("fill in all fields to save organization");
             return;
         }
-        organizations.create($scope.organization).error(function(data){
+        organizationsFactory.create($scope.organization).error(function(data){
             //data.errors;
         });
 
         $scope.organization = {};
-        $scope.toggleShowAddButton();
-        $scope.error = "";
-
+        $scope.showAddForm();
     };
 
     //sort
+    $scope.sortPredicates = ['name', 'organization_type', 'address', 'telephone', 'description'];
     $scope.predicate = 'name';
     $scope.reverse = false;
 
     $scope.sortOrder = function(predicate) {
-        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
         $scope.predicate = predicate;
     };
-
 
 }]);

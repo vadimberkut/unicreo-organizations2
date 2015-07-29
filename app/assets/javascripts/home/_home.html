@@ -1,60 +1,69 @@
-<div class="pageHeader">
-    <h1 class="pageTitle">Organizations</h1>
+<div class="header">
 
-    <div >
-        <button ng-click="showAddOrganizationForm()"
-                ng-show="showAddButton" class="addOrganizationBtn">
-            Add organization
+    <h1 class="header__title">Organizations</h1>
+
+    <button ng-click="showAddForm()" class="button button_add-button">
+        Add organization
+    </button>
+
+    <span class="sort-controll">Sort by:
+        <select>
+            <option ng-repeat="sortPredicate in sortPredicates"
+                    ng-click="sortOrder(sortPredicate)">{{sortPredicate}}</option>
+        </select>
+
+        <button ng-click="reverse=!reverse" class="button">
+            <span ng-hide="reverse">ASC &#9650;</span>
+            <span ng-show="reverse">DESC &#9660;</span>
         </button>
+    </span>
 
-        <div ng-hide="showAddButton" class="addOrganizationForm">
-            <div ng-include="'organizations/_form.html'"></div>
-        </div>
+    <div ng-show="showAddFormFlag">
+        <div ng-include="'organizations/_form.html'"></div>
     </div>
 </div>
 
 <div>
-    <ul class="contentList">
-        <li ng-repeat="organization in organizations | orderBy:predicate:reverse">
-            <h1>
-                <span ng-click="sortOrder('name')" class="sortItem">{{organization.name}}</span>
+    <ul class="content-list">
+        <li ng-repeat="organization in organizations | orderBy:predicate:reverse" class="content-list__item">
+            <h2 class="h2">
+                <span>{{organization.name}}</span>
 
-                <span ng-show="predicate=='name'" class="sortTypeSymbol">
-                    <span ng-hide="reverse"> &#9650;</span>
-                    <span ng-show="reverse"> &#9660;</span>
-                </span>
+                <span class="controll-buttons-group">
 
-                <span class="controlButtonsBox">
-                <button ng-click="edit(organization.id)" class="editBtn">edit</button>
-                <button ng-click="deleteOrganization(organization)" class="deleteBtn">delete</button>
-                <button ng-click="showAttachments(organization)" class="showBtn">
-                    attachments</button>
+                <button ng-click="edit(organization.id)" class="button">edit</button>
+                <button ng-click="deleteOrganization(organization)" class="button button_delete">delete</button>
+                <button ng-click="showAttachments(organization)" class="button">attachments</button>
+
                 </span>
-            </h1>
-            <div class="infoItem">
-                <span ng-click="sortOrder('organization_type')" class="dbDataSign sortItem">Type: </span>
+            </h2>
+            <div class="data-group">
+                <span >Type: </span>
                 {{organization.organization_type}}
+            </div>
+            <div class="data-group">
+                <span class="">Address: </span>{{organization.address}}
+            </div>
+            <div class="data-group">
+                <span class="">Telephone: </span>{{organization.telephone}}
+            </div>
+            <div class="data-group">
+                <span class="">Description: </span>
+                <span class="">{{organization.description}}</span>
+            </div>
+            <div ng-if="showAttachmentsFlags[organization.id]" class="data-group">
+                <span ng-if="organization.attachments.length">Attachments: </span>
 
-                <span ng-show="predicate=='organization_type'" class="sortTypeSymbol">
-                    <span ng-hide="reverse"> &#9650;</span>
-                    <span ng-show="reverse"> &#9660;</span>
-                </span>
-            </div>
-            <div class="infoItem">
-                <span class="dbDataSign">Address: </span>{{organization.address}}
-            </div>
-            <div class="infoItem">
-                <span class="dbDataSign">Telephone: </span>{{organization.telephone}}
-            </div>
-            <div class="infoItem">
-                <span class="dbDataSign">Description: </span>
-                <span class="description">{{organization.description}}</span>
-            </div>
-            <div ng-if="showAttachmentsFlags[organization.id]" class="infoItem">
-                <span ng-if="organization.attachments.length" class="dbDataSign">Attachments: </span>
-                <div class="">
-                    <img ng-repeat="attachment in organization.attachments"
-                         ng-src="{{attachment.name}}" class="orgImg">
+                <div class="attachments-box">
+
+                    <img ng-repeat="attachment in organization.attachments | filter: {mime_type:'image/'}"
+                         ng-src="{{attachment.name}}" class="attachments-box__image">
+
+                    <div class="attachments-box__documents">
+                        <div ng-repeat="attachment in organization.attachments | filter: {mime_type: 'application/'}">
+                        <a  ng-href="{{attachment.name}}">{{attachment.name}}</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
