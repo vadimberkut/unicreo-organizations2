@@ -1,4 +1,4 @@
-angular.module('organizationsApp', ['ui.router', 'templates', 'ngFileUpload', 'Devise'])
+angular.module('organizationsApp', ['ui.router', 'templates', 'ngFileUpload', 'Devise','appFlags'])
 .config([
 '$stateProvider',
 '$urlRouterProvider',
@@ -7,7 +7,7 @@ function($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('home', {
             url: '/home',
-            templateUrl: 'home/_home.html',
+            templateUrl: '_home.html',
             controller: 'HomeCtrl',
 
             resolve: {
@@ -18,7 +18,7 @@ function($stateProvider, $urlRouterProvider) {
         })
         .state('organizations', {
             url: '/organizations/{id}',
-            templateUrl: 'organizations/_organizations.html',
+            templateUrl: '_organizations.html',
             controller: 'OrganizationsCtrl',
 
             resolve: {
@@ -30,7 +30,7 @@ function($stateProvider, $urlRouterProvider) {
         })
         .state('login', {
             url: '/login',
-            templateUrl: 'auth/_login.html',
+            templateUrl: '_login.html',
             controller: 'AuthCtrl',
 
             onEnter: ['$state', 'Auth', function($state, Auth){
@@ -41,7 +41,7 @@ function($stateProvider, $urlRouterProvider) {
         })
         .state('register', {
             url: '/register',
-            templateUrl: 'auth/_register.html',
+            templateUrl: '_register.html',
             controller: 'AuthCtrl',
 
             onEnter: ['$state', 'Auth', function($state, Auth){
@@ -54,3 +54,8 @@ function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('home');
 
 }]);
+
+angular.module('organizationsApp')
+    .value('appConfig', {
+        'organization_types': ['commercial', 'noncommercial', 'not specified']
+    });

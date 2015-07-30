@@ -30,7 +30,7 @@ function($scope, Auth){
     });
 
     $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
-        alert("unauthorized")
+        alert("unauthorized");
     });
 
 }]);

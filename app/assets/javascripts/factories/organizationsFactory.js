@@ -16,28 +16,35 @@ function($http){
     o.create = function(organization){
         return $http.post('/organizations.json', organization)
             .success(function(data){
-                o.organizations.push(data);
+               o.organizations.push(data);
             })
     };
 
     o.get = function(organization_id){
         return $http.get('/organizations/' + organization_id + '.json')
-            .then(function(res){
-                return res.data;
+            .then(function(result){
+                return result.data;
             })
     };
 
     o.update = function(organization){
         return $http.put('/organizations/' + organization.id + '.json', organization)
             .success(function(data){
-                organization = data;
+                //organization = data;
+
             })
     };
 
     o.delete = function(organization){
-        return $http.delete('/organizations/' + organization.id + '.json', organization)
+        return $http.delete('/organizations/' + organization.id + '.json')
             .success(function(data){
-                o.getAll();
+
+                for (var i=0; i < o.organizations.length; i++){
+                    if (o.organizations[i].id == organization.id) {
+                        o.organizations.splice(i, 1);
+                        return;
+                    }
+                }
             })
     };
 

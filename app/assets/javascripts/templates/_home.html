@@ -2,7 +2,7 @@
 
     <h1 class="header__title">Organizations</h1>
 
-    <button ng-click="showAddForm()" class="button button_add-button">
+    <button ng-click="showAddFormFlag.toggle()" class="button button_add-button">
         Add organization
     </button>
 
@@ -20,8 +20,8 @@
 
     <span ng-bind="authError" class="error-message error-message_right"></span>
 
-    <div ng-show="showAddFormFlag">
-        <div ng-include="'organizations/_form.html'"></div>
+    <div ng-show="showAddFormFlag.get()">
+        <div ng-include="'_form.html'"></div>
     </div>
 </div>
 
@@ -35,7 +35,7 @@
 
                 <button ng-click="edit(organization.id)" class="button">edit</button>
                 <button ng-click="deleteOrganization(organization)" class="button button_delete">delete</button>
-                <button ng-click="showAttachments(organization)" class="button">attachments</button>
+                <button ng-click="showAttachmentsFlags.toggle(organization.id)" class="button">attachments</button>
 
                 </span>
             </h2>
@@ -53,8 +53,9 @@
                 <span class="">Description: </span>
                 <span class="">{{organization.description}}</span>
             </div>
-            <div ng-if="showAttachmentsFlags[organization.id]" class="data-group">
+            <div ng-if="showAttachmentsFlags.get(organization.id)" class="data-group">
                 <span ng-if="organization.attachments.length">Attachments: </span>
+                <span ng-hide="organization.attachments.length">No attachments!</span>
 
                 <div class="attachments-box">
 

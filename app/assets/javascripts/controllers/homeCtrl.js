@@ -4,15 +4,21 @@ angular.module('organizationsApp')
 'organizationsFactory',
 '$location',
 'Auth',
-function($scope, organizationsFactory, $location, Auth){
+'showAddFormFlag',
+'showAttachmentsFlags',
+'appDataService',
+function($scope, organizationsFactory, $location, Auth, showAddFormFlag, showAttachmentsFlags, appDataService){
 
     $scope.organizations = organizationsFactory.organizations;
     $scope.organization = {};
 
-    $scope.showAddFormFlag = false;
+    //set app flags
+    $scope.showAddFormFlag = showAddFormFlag;
+    $scope.showAttachmentsFlags = showAttachmentsFlags;//show/hide organization attachments
 
-    //show/hide organization attachments
-    $scope.showAttachmentsFlags = [];
+
+    $scope.organization_types = appDataService.organization_types;
+
 
     $scope.validateOrganization = function(organization){
         if(!organization.name || !organization.description || !organization.organization_type ||
@@ -21,14 +27,6 @@ function($scope, organizationsFactory, $location, Auth){
             return false;
         }
         return true;
-    };
-
-    //toggle show/hide add organization form
-    $scope.showAddForm = function(){
-        if(!Auth.isAuthenticated())
-            $scope.authError = "You need to log in or register before adding.";
-        else
-            $scope.showAddFormFlag = !$scope.showAddFormFlag ;
     };
 
     $scope.edit = function(organization_id){
@@ -46,18 +44,9 @@ function($scope, organizationsFactory, $location, Auth){
             organizationsFactory.delete(organization);
     };
 
-    $scope.showAttachments = function(organization){
-        if(!$scope.showAttachmentsFlags[organization.id])
-            $scope.showAttachmentsFlags[organization.id] = true;
-        else
-            $scope.showAttachmentsFlags[organization.id] =! $scope.showAttachmentsFlags[organization.id]
-    };
-
-
     // reset all entered data and hide add organization form
     $scope.cancel = function(){
-        $scope.showAddForm();
-        $scope.organization = {};
+        $scope.showAddFormFlag.set(false);
     };
 
     //add organization and hide add organization form
@@ -67,21 +56,26 @@ function($scope, organizationsFactory, $location, Auth){
            $scope.formError = "Fill in all fields before continuing.";
            return;
         }
-        organizationsFactory.create($scope.organization).error(function(data, status, headers, config) {
-        });
+        organizationsFactory.create($scope.organization)
+            .error(function(data, status, headers, config) {
+            }
+        );
 
+        $scope.showAddFormFlag.set(false);
         $scope.organization = {};
-        $scope.showAddForm();
         $scope.formError = "";
     };
 
     //sort
-    $scope.sortPredicates = ['name', 'organization_type', 'address', 'telephone', 'description'];
-    $scope.predicate = 'name';
+    $scope.sortPredicates = appDataService.sortPredicates;
+    $scope.predicate = $scope.sortPredicates[0];
     $scope.reverse = false;
 
     $scope.sortOrder = function(predicate) {
         $scope.predicate = predicate;
     };
+    $scope.getSortPredicate = function(){
+        return $scope.predicate;
+    }
 
 }]);
